@@ -24,6 +24,28 @@ class DBHalper(context: Context): SQLiteOpenHelper(context, "Userdata", null, 1)
         return result != (-1).toLong()
     }
 
+    fun updatauserdata(name: String, contact: String): Boolean {
+        val p0 = this.writableDatabase
+        val cv = ContentValues()
+        cv.put("contact", contact)
+        val cursor: Cursor = p0.rawQuery("select * from Userdata where name=?", arrayOf(name))
+        if (cursor.count>0) {
+            val result = p0.update("Userdata", cv, "name=?", arrayOf(name))
+            return result != -1
+        }
+        return false
+    }
+
+    fun deleteuserdata(name: String): Boolean {
+        val p0 = this.writableDatabase
+        val cursor: Cursor = p0.rawQuery("select * from Userdata where name=?", arrayOf(name))
+        if (cursor.count>0) {
+            val result = p0.delete("Userdata", "name=?", arrayOf(name))
+            return result != -1
+        }
+        return false
+    }
+
     fun gettext(): Cursor? {
         val p0 = this.writableDatabase
         val cursor = p0.rawQuery("select * from Userdata", null)

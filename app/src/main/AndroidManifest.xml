@@ -13,7 +13,14 @@
         android:theme="@style/Theme.Contakts"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity3"
+            android:parentActivityName=".MainActivity"
+            android:label="Delete and Update"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity2"
+            android:parentActivityName=".MainActivity"
+            android:label="Add to contact"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

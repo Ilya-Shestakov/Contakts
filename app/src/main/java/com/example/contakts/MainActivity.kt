@@ -5,6 +5,7 @@ import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var btnAddMain1: Button
     lateinit var dbh: DBHalper
     private lateinit var newArry: ArrayList<Datalist>
+    private lateinit var adapter: MyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,14 +37,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun dispayuser() {
-        var newcursor: Cursor? = dbh!!.gettext()
+        val newcursor: Cursor? = dbh!!.gettext()
         newArry = ArrayList<Datalist>()
         while (newcursor!!.moveToNext()){
             val uname = newcursor.getString(0)
             val uphone = newcursor.getString(1)
             newArry.add(Datalist(uname, uphone))
         }
-        recyclerView.adapter = MyAdapter(newArry)
+        adapter = MyAdapter(newArry)
+        recyclerView.adapter = adapter
+        adapter.OnItemClickListener(object: MyAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                val intent = Intent(this@MainActivity, MainActivity3::class.java)
+                intent.putExtra("name", newArry[position].name)
+                intent.putExtra("phone", newArry[position].contact)
+                startActivity(intent)
+            }
+
+        })
     }
 
 }

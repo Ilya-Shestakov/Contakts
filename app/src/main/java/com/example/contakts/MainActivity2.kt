@@ -26,7 +26,7 @@ class MainActivity2 : AppCompatActivity() {
 
     fun saveMethod(view: View){
         val names = name.text.toString()
-        val numbers = phone.text.toString()
+        val numbers = phone.text. toString()
         val savedata = db.saveuserdata(names, numbers)
         if (TextUtils.isEmpty(names) || TextUtils.isEmpty(numbers)){
             Toast.makeText(this, "Add name & phone", Toast.LENGTH_SHORT).show()
